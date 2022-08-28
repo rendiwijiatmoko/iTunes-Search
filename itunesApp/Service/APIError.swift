@@ -23,7 +23,7 @@ enum APIError: Error, CustomStringConvertible {
         case .badResponse(let statusCode):
             return "bad response with status code: \(statusCode)"
         case .decoding(let decodingError):
-            return "decoding error: \(decodingError)"
+            return "decoding error: \(String(describing: decodingError))"
         case .unknown:
             return "unknown error"
         }
@@ -36,7 +36,7 @@ enum APIError: Error, CustomStringConvertible {
         case .urlSession(let urlError):
             return urlError?.localizedDescription ?? "something went wrong"
         case .decoding(let decodingError):
-            return decodingError.localizedDescription
+            return decodingError?.localizedDescription ?? "something went wrong"
         }
     }
 }
