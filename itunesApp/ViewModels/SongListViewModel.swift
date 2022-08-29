@@ -20,6 +20,7 @@ class SongListViewModel: ObservableObject {
     
     init() {
         $searchTerm
+            .removeDuplicates()
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
@@ -49,7 +50,7 @@ class SongListViewModel: ObservableObject {
                     }
                     self.page += 1
                     self.state = (result.results.count == self.limit) ? .good : .loadedAll
-                    print("fetched \(result.resultCount)")
+                    print("fetched songs \(result.resultCount)")
                 case .failure(let error):
                     self.state = .error("Could not load: \(error.localizedDescription)")
                     print("DEBUG-- \(error)")
@@ -60,5 +61,11 @@ class SongListViewModel: ObservableObject {
     
     func loadMore() {
         fetchSongs(for: searchTerm)
+    }
+    
+    static func example() -> SongListViewModel {
+        let vm = SongListViewModel()
+        vm.listSongs = [Song.example()]
+        return vm
     }
 }

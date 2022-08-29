@@ -36,12 +36,26 @@ struct SearchView: View {
                     switch selectedEntityType {
                     case .all:
                         SearchAllListView()
+                            .onAppear {
+                                viewModelAlbumList.searchTerm = searchTerm
+                                viewModelSongList.searchTerm = searchTerm
+                                viewModelMovieList.searchTerm = searchTerm
+                            }
                     case .album:
                         AlbumListView(viewModelAlbumList: viewModelAlbumList)
+                            .onAppear {
+                                viewModelAlbumList.searchTerm = searchTerm
+                            }
                     case .song:
                         SongListView(viewModelSongList: viewModelSongList)
+                            .onAppear {
+                                viewModelSongList.searchTerm = searchTerm
+                            }
                     case .movie:
                         MovieListView(viewModelMovieList: viewModelMovieList)
+                            .onAppear {
+                                viewModelMovieList.searchTerm = searchTerm
+                            }
                     }
                 }
             }

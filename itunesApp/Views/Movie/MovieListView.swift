@@ -40,6 +40,6 @@ struct MovieListView: View {
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(viewModelMovieList: MovieListViewModel())
+        MovieListView(viewModelMovieList: MovieListViewModel.example())
     }
 }

@@ -14,7 +14,7 @@ struct AlbumListView: View {
         List
         {
             ForEach(viewModelAlbumList.listAlbums) { album in
-                Text(album.collectionName)
+                AlbumRowView(album: album)
             }
             switch viewModelAlbumList.state
             {
@@ -40,6 +40,6 @@ struct AlbumListView: View {
 
 struct AlbumListView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumListView(viewModelAlbumList: AlbumListViewModel())
+        AlbumListView(viewModelAlbumList: AlbumListViewModel.example())
     }
 }

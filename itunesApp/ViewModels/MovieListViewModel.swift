@@ -21,6 +21,7 @@ class MovieListViewModel: ObservableObject {
     
     init() {
         $searchTerm
+            .removeDuplicates()
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
@@ -51,11 +52,8 @@ class MovieListViewModel: ObservableObject {
                     } else {
                         self.state = .loadedAll
                     }
-//                    for movie in result.results {
-//                        self.listMovies.append(movie)
-//                    }
                     self.state =  .good
-                    print("fetched \(result.resultCount)")
+                    print("fetched movies \(result.resultCount)")
                 case .failure(let error):
                     self.state = .error("Could not load: \(error.localizedDescription)")
                     print("DEBUG-- \(error)")
@@ -66,5 +64,11 @@ class MovieListViewModel: ObservableObject {
     
     func loadMore(){
         fetchMovies(for: searchTerm)
+    }
+    
+    static func example() -> MovieListViewModel {
+        let vm = MovieListViewModel()
+        vm.listMovies = [Movie.example()]
+        return vm
     }
 }
