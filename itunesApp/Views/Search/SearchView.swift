@@ -35,7 +35,7 @@ struct SearchView: View {
                 } else {
                     switch selectedEntityType {
                     case .all:
-                        SearchAllListView()
+                        SearchAllListView(viewModelAlbumList: viewModelAlbumList, viewModelMovieList: viewModelMovieList, viewModelSongList: viewModelSongList)
                             .onAppear {
                                 viewModelAlbumList.searchTerm = searchTerm
                                 viewModelSongList.searchTerm = searchTerm
