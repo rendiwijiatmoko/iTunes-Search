@@ -24,49 +24,10 @@ struct SongRowView: View {
             
             Spacer(minLength: 20)
            
-            BuyButton(urlString: song.trackViewURL, price: song.trackPrice, currency: song.currency)
+            BuySongButton(urlString: song.trackViewURL, price: song.trackPrice, currency: song.currency)
         }
     }
 }
-
-struct BuyButton: View {
-    let urlString: String
-    let price: Double?
-    let currency: String
-    
-    var body: some View {
-        if let url = URL(string: urlString), let price = price {
-            Link(destination: url) {
-                Text("\(Int(price)) \(currency)")
-            }
-            .buttonStyle(BuyButtonStyle())
-        }
-    }
-}
-
-struct ImageLoadingView: View {
-    let urlString: String
-    let size: CGFloat
-    var body: some View {
-        AsyncImage(url: URL(string: urlString)) { phase in
-            switch phase {
-            case .empty :
-                ProgressView()
-                    .frame(width: size)
-            case .failure(_):
-                Color.gray
-                    .frame(width: size)
-            case .success(let image):
-                image
-                    .border(Color(white: 0.8))
-            @unknown default:
-                EmptyView()
-            }
-        }
-        .frame(height: size)
-    }
-}
-
 
 struct SongRowView_Previews: PreviewProvider {
     static var previews: some View {

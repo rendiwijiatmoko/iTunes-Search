@@ -14,7 +14,11 @@ struct AlbumListView: View {
         List
         {
             ForEach(viewModelAlbumList.listAlbums) { album in
-                AlbumRowView(album: album)
+                NavigationLink {
+                    AlbumDetailView(album: album)
+                } label: {
+                    AlbumRowView(album: album)
+                }
             }
             switch viewModelAlbumList.state
             {
